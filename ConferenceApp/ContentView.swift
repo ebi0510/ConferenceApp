@@ -22,7 +22,9 @@ struct ContentView: View {
         NavigationStack{
             VStack {
                 List(sampleContents, id: \.self) { sampleContent in
-                    Text(sampleContent.name)
+                    NavigationLink(destination: ConferenceView(conference: sampleContent)){
+                        Text(sampleContent.name)
+                    }
                 }
             }
             .padding()
