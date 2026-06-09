@@ -11,11 +11,11 @@ struct ConferenceView: View {
     let conference: ConferenceData
     
     var body: some View {
-            VStack {
-                Text(conference.name)
-                Text(conference.eventDate, style: .date)
-                    
+        VStack {
+            List(conference.tasks, id: \.self) { sampleTask in
+                Text(sampleTask.name)
             }
+        }
         .padding()
     }
 }
