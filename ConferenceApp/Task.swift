@@ -9,5 +9,5 @@ import SwiftUI
 
 struct Task: Hashable {
     var name : String
-    var date : Date
+    var dueDate : Date
 }
