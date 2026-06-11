@@ -15,7 +15,7 @@ struct ConferenceData: Hashable {
     var cfpDeadline: Date?
     var sponsorStartline: Date?
     var sponsorDeadline: Date?
-    var tasks = [Task]()
+    var tasks = [ConferenceTask]()
 }
 
 

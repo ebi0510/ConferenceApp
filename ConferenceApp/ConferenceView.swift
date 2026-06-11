@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ConferenceView: View {
     @State private var showSheet = false
-    var conference: ConferenceData
+    @State var conference: ConferenceData
     
     var body: some View {
         VStack {
@@ -23,7 +23,7 @@ struct ConferenceView: View {
                 Text("タスクを追加")
             }
             .sheet(isPresented: $showSheet) {
-                SheetView()
+                SheetView(conference: $conference)
             }
             .padding(15)
             .overlay(
@@ -37,6 +37,8 @@ struct ConferenceView: View {
 }
 
 struct SheetView: View {
+    @Environment(\.dismiss) private var dismiss
+    @Binding var conference: ConferenceData
     @State var taskName = ""
     @State var dueDate = Date()
     
@@ -44,6 +46,12 @@ struct SheetView: View {
         VStack {
             TextField("タスク内容を入力", text: $taskName)
             DatePicker("日時を選択", selection: $dueDate)
+            Button {
+                conference.tasks.append(ConferenceTask(name: taskName, dueDate: dueDate))
+                dismiss()
+            } label: {
+                Text("タスクを追加")
+            }
         }
         .padding()
     }
