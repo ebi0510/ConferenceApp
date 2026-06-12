@@ -33,7 +33,7 @@ struct ContentView: View {
                     Text("カンファレンスを追加")
                 }
                 .sheet(isPresented: $showSheet) {
-//                    AddConferenceView(sampleContents: $sampleContents)
+//                    AddConferenceView(sampleContents: $sampleContents)修正したい
                 }
                 .padding(15)
                 .overlay(
