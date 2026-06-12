@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    let sampleContents = [
+    @State private var showSheet = false
+    @State var sampleContents = [
         ConferenceData(
             name: "iOSDC2026",
             eventDate: Date()
@@ -26,9 +27,44 @@ struct ContentView: View {
                         Text(sampleContent.name)
                     }
                 }
+                Button {
+                    showSheet = true
+                } label: {
+                    Text("カンファレンスを追加")
+                }
+                .sheet(isPresented: $showSheet) {
+//                    AddConferenceView(sampleContents: $sampleContents)
+                }
+                .padding(15)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.gray, lineWidth: 2) // 枠線の色と太さ
+                )
+                .clipShape(RoundedRectangle(cornerRadius: 10))
             }
             .padding()
         }
+    }
+}
+
+struct AddConferenceView: View {
+    @Environment(\.dismiss) private var dismiss
+    @Binding var conference: ConferenceData
+    @State var taskName = ""
+    @State var dueDate = Date()
+    
+    var body: some View {
+        VStack {
+            TextField("タスク内容を入力", text: $taskName)
+            DatePicker("日時を選択", selection: $dueDate)
+            Button {
+                conference.tasks.append(ConferenceTask(name: taskName, dueDate: dueDate))
+                dismiss()
+            } label: {
+                Text("タスクを追加")
+            }
+        }
+        .padding()
     }
 }
 
