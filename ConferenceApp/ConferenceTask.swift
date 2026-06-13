@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Task: Hashable {
+struct ConferenceTask: Hashable {
     var name : String
-    var date : Date
+    var dueDate : Date
 }

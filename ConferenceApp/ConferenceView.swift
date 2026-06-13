@@ -8,14 +8,51 @@
 import SwiftUI
 
 struct ConferenceView: View {
-    let conference: ConferenceData
+    @State private var showSheet = false
+    @State var conference: ConferenceData
     
     var body: some View {
-            VStack {
-                Text(conference.name)
-                Text(conference.eventDate, style: .date)
-                    
+        VStack {
+            List(conference.tasks, id: \.self) { sampleTask in
+                Text(sampleTask.name)
             }
+            
+            Button {
+                showSheet = true
+            } label: {
+                Text("タスクを追加")
+            }
+            .sheet(isPresented: $showSheet) {
+                SheetView(conference: $conference)
+            }
+            .padding(15)
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.gray, lineWidth: 2) // 枠線の色と太さ
+            )
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+        }
+        .padding()
+    }
+}
+
+struct SheetView: View {
+    @Environment(\.dismiss) private var dismiss
+    @Binding var conference: ConferenceData
+    @State var taskName = ""
+    @State var dueDate = Date()
+    
+    var body: some View {
+        VStack {
+            TextField("タスク内容を入力", text: $taskName)
+            DatePicker("日時を選択", selection: $dueDate)
+            Button {
+                conference.tasks.append(ConferenceTask(name: taskName, dueDate: dueDate))
+                dismiss()
+            } label: {
+                Text("タスクを追加")
+            }
+        }
         .padding()
     }
 }
