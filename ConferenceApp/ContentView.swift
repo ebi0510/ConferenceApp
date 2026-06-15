@@ -33,7 +33,7 @@ struct ContentView: View {
                     Text("カンファレンスを追加")
                 }
                 .sheet(isPresented: $showSheet) {
-//                    AddConferenceView(sampleContents: $sampleContents)修正したい
+                    AddConferenceView(sampleContents: $sampleContents)
                 }
                 .padding(15)
                 .overlay(
@@ -49,19 +49,19 @@ struct ContentView: View {
 
 struct AddConferenceView: View {
     @Environment(\.dismiss) private var dismiss
-    @Binding var conference: ConferenceData
-    @State var taskName = ""
-    @State var dueDate = Date()
+    @Binding var sampleContents: [ConferenceData]
+    @State var eventDate = Date()
+    @State var conferenceName = ""
     
     var body: some View {
         VStack {
-            TextField("タスク内容を入力", text: $taskName)
-            DatePicker("日時を選択", selection: $dueDate)
+            TextField("カンファレンス名を入力", text: $conferenceName)
+            DatePicker("開催日を選択", selection: $eventDate)
             Button {
-                conference.tasks.append(ConferenceTask(name: taskName, dueDate: dueDate))
+                sampleContents.append(ConferenceData(name: conferenceName, eventDate: eventDate))
                 dismiss()
             } label: {
-                Text("タスクを追加")
+                Text("カンファレンスを追加")
             }
         }
         .padding()
