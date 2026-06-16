@@ -6,8 +6,13 @@
 //
 
 import SwiftUI
+import SwiftData
 
-struct ConferenceData: Hashable {
+@Model class ConferenceData {
+    init(name: String, eventDate: Date) {
+        self.name = name
+        self.eventDate = eventDate
+    }
 //    なんのデータか見分けがつく名称を使う
     var name: String
     var eventDate: Date
@@ -15,6 +20,7 @@ struct ConferenceData: Hashable {
     var cfpDeadline: Date?
     var sponsorStartline: Date?
     var sponsorDeadline: Date?
+    @Relationship(inverse: \ConferenceTask.parent)
     var tasks = [ConferenceTask]()
 }
 
