@@ -14,13 +14,13 @@ import SwiftData
         self.eventDate = eventDate
     }
 //    なんのデータか見分けがつく名称を使う
+    @Relationship(inverse: \ConferenceTask.parent)
     var name: String
     var eventDate: Date
     var cfpStartline: Date?
     var cfpDeadline: Date?
     var sponsorStartline: Date?
     var sponsorDeadline: Date?
-    @Relationship(inverse: \ConferenceTask.parent)
     var tasks = [ConferenceTask]()
 }
 

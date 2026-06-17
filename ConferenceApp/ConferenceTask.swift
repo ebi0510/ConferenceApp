@@ -9,9 +9,10 @@ import SwiftUI
 import SwiftData
 
 @Model class ConferenceTask {
-    init(name: String, dueDate: Date) {
+    init(name: String, dueDate: Date, parent: ConferenceData?) {
         self.name = name
         self.dueDate = dueDate
+        self.parent = parent
     }
     
     var name : String
