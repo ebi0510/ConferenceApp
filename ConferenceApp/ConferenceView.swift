@@ -11,14 +11,26 @@ import SwiftData
 struct ConferenceView: View {
     @State private var showSheet = false
     @State var conference: ConferenceData
+    @Environment(\.modelContext) var context
     
     var body: some View {
         VStack {
-            List(conference.tasks, id: \.self) { sampleTask in
+            List { ForEach(conference.tasks, id: \.self) { sampleTask in
                 HStack {
+                    Button(action: {
+                        sampleTask.isDone.toggle()
+                    }) {
+                        if sampleTask.isDone {
+                            Image(systemName: "checkmark.circle.fill").renderingMode(.original)
+                        } else {
+                            Image(systemName: "circle").renderingMode(.original)
+                        }
+                    }
                     Text(sampleTask.name)
                     Text(sampleTask.dueDate, style: .date)
                 }
+            }
+            .onDelete(perform: deleteItems)
             }
             
             Button {
@@ -38,7 +50,16 @@ struct ConferenceView: View {
         }
         .padding()
     }
+    private func deleteItems(offsets: IndexSet) {
+        withAnimation {
+            for index in offsets {
+                let item = conference.tasks[index]
+                context.delete(item) // 削除を予約
+            }
+        }
+    }
 }
+
 
 struct SheetView: View {
     @Environment(\.dismiss) private var dismiss
