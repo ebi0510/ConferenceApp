@@ -12,10 +12,12 @@ import SwiftData
     init(name: String, dueDate: Date, parent: ConferenceData?) {
         self.name = name
         self.dueDate = dueDate
+        self.isDone = false
         self.parent = parent
     }
     
-    var name : String
-    var dueDate : Date
-    var parent : ConferenceData?
+    var name: String
+    var dueDate: Date
+    var isDone: Bool
+    var parent: ConferenceData?
 }
