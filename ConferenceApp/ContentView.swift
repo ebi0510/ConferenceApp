@@ -6,18 +6,12 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
     @State private var showSheet = false
-    @State var sampleContents = [
-        ConferenceData(
-            name: "iOSDC2026",
-            eventDate: Date()
-        ),
-        ConferenceData(
-            name: "DroidKaigi2026",
-            eventDate: Date()
-        )]
+    @Environment(\.modelContext) var context
+    @Query var sampleContents: [ConferenceData]
     
     var body: some View {
         NavigationStack{
@@ -33,7 +27,7 @@ struct ContentView: View {
                     Text("カンファレンスを追加")
                 }
                 .sheet(isPresented: $showSheet) {
-                    AddConferenceView(sampleContents: $sampleContents)
+                    AddConferenceView()
                 }
                 .padding(15)
                 .overlay(
@@ -49,7 +43,7 @@ struct ContentView: View {
 
 struct AddConferenceView: View {
     @Environment(\.dismiss) private var dismiss
-    @Binding var sampleContents: [ConferenceData]
+    @Environment(\.modelContext) var context
     @State var eventDate = Date()
     @State var conferenceName = ""
     
@@ -58,7 +52,7 @@ struct AddConferenceView: View {
             TextField("カンファレンス名を入力", text: $conferenceName)
             DatePicker("開催日を選択", selection: $eventDate)
             Button {
-                sampleContents.append(ConferenceData(name: conferenceName, eventDate: eventDate))
+                context.insert(ConferenceData(name: conferenceName, eventDate: eventDate))
                 dismiss()
             } label: {
                 Text("カンファレンスを追加")

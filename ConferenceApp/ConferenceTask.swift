@@ -6,8 +6,16 @@
 //
 
 import SwiftUI
+import SwiftData
 
-struct ConferenceTask: Hashable {
+@Model class ConferenceTask {
+    init(name: String, dueDate: Date, parent: ConferenceData?) {
+        self.name = name
+        self.dueDate = dueDate
+        self.parent = parent
+    }
+    
     var name : String
     var dueDate : Date
+    var parent : ConferenceData?
 }
