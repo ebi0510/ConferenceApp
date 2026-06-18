@@ -19,6 +19,7 @@ struct ContentView: View {
                 List(sampleContents, id: \.self) { sampleContent in
                     NavigationLink(destination: ConferenceView(conference: sampleContent)){
                         Text(sampleContent.name)
+                        Text(sampleContent.eventDate, style: .date)
                     }
                 }
                 Button {

@@ -15,7 +15,10 @@ struct ConferenceView: View {
     var body: some View {
         VStack {
             List(conference.tasks, id: \.self) { sampleTask in
-                Text(sampleTask.name)
+                HStack {
+                    Text(sampleTask.name)
+                    Text(sampleTask.dueDate, style: .date)
+                }
             }
             
             Button {
