@@ -16,11 +16,13 @@ struct ContentView: View {
     var body: some View {
         NavigationStack{
             VStack {
-                List(sampleContents, id: \.self) { sampleContent in
+                List{ ForEach(sampleContents, id: \.self) { sampleContent in
                     NavigationLink(destination: ConferenceView(conference: sampleContent)){
                         Text(sampleContent.name)
                         Text(sampleContent.eventDate, style: .date)
                     }
+                }
+                .onDelete(perform: deleteItems)
                 }
                 Button {
                     showSheet = true
@@ -38,6 +40,14 @@ struct ContentView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 10))
             }
             .padding()
+        }
+    }
+    private func deleteItems(offsets: IndexSet) {
+        withAnimation {
+            for index in offsets {
+                let item = sampleContents[index]
+                context.delete(item) // 削除を予約
+            }
         }
     }
 }
