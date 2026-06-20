@@ -15,6 +15,16 @@ struct ConferenceView: View {
     
     var body: some View {
         VStack {
+            if let cfpDeadline = conference.cfpDeadline {
+                Text("CfP締切：\(cfpDeadline)")
+            } else {
+                Text("CfP締切：未定")
+            }
+            if let sponcerDeadline = conference.sponsorDeadline {
+                Text("スポンサー締切：\(sponcerDeadline)")
+            } else {
+                Text("スポンサー締切：未定")
+            }
             List { ForEach(conference.tasks, id: \.self) { sampleTask in
                 HStack {
                     Button(action: {
