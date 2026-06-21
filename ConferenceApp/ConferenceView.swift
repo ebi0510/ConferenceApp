@@ -81,7 +81,7 @@ struct SheetView: View {
     var body: some View {
         VStack {
             TextField("タスク内容を入力", text: $taskName)
-            DatePicker("日時を選択", selection: $dueDate)
+            DatePicker("日時を選択", selection: $dueDate, displayedComponents: [.date])
             Button {
                 context.insert(ConferenceTask(name: taskName, dueDate: dueDate, parent: conference))
                 dismiss()
