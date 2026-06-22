@@ -58,18 +58,18 @@ struct AddConferenceView: View {
     @State var eventDate = Date()
     @State var conferenceName = ""
     @State var cfpDeadline = Date()
-    @State var hasCfpDeadline = true
+    @State var hasCfpDeadline = false
     
     var body: some View {
         VStack {
             TextField("カンファレンス名を入力", text: $conferenceName)
             DatePicker("開催日を入力", selection: $eventDate, displayedComponents: [.date])
+            Toggle("CfP締切", isOn: $hasCfpDeadline)
 
             if hasCfpDeadline {
-                Toggle("CfP締切未定", isOn: $hasCfpDeadline)
-            } else {
                 DatePicker("CfP締切を入力", selection: $cfpDeadline, displayedComponents: [.date])
             }
+            
             Button {
                 context.insert(ConferenceData(name: conferenceName, eventDate: eventDate))
                 dismiss()
