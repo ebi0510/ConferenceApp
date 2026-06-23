@@ -71,7 +71,7 @@ struct AddConferenceView: View {
             }
             
             Button {
-                context.insert(ConferenceData(name: conferenceName, eventDate: eventDate))
+                context.insert(ConferenceData(name: conferenceName, eventDate: eventDate,  cfpDeadline: hasCfpDeadline ? cfpDeadline : nil))
                 dismiss()
             } label: {
                 Text("カンファレンスを追加")

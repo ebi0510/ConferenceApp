@@ -9,9 +9,10 @@ import SwiftUI
 import SwiftData
 
 @Model class ConferenceData {
-    init(name: String, eventDate: Date) {
+    init(name: String, eventDate: Date, cfpDeadline: Date?) {
         self.name = name
         self.eventDate = eventDate
+        self.cfpDeadline = cfpDeadline
     }
 //    なんのデータか見分けがつく名称を使う
     var name: String

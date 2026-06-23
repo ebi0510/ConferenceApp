@@ -93,6 +93,3 @@ struct SheetView: View {
     }
 }
 
-#Preview {
-    ConferenceView(conference: ConferenceData(name: "iOSDC2026", eventDate: Date()))
-}
