@@ -16,12 +16,12 @@ struct ConferenceView: View {
     var body: some View {
         VStack {
             if let cfpDeadline = conference.cfpDeadline {
-                Text("CfP締切：\(cfpDeadline)")
+                Text("CfP締切：\(cfpDeadline, style: .date)")
             } else {
                 Text("CfP締切：未定")
             }
             if let sponcerDeadline = conference.sponsorDeadline {
-                Text("スポンサー締切：\(sponcerDeadline)")
+                Text("スポンサー締切：\(sponcerDeadline, style: .date)")
             } else {
                 Text("スポンサー締切：未定")
             }
