@@ -15,6 +15,16 @@ struct ConferenceView: View {
     
     var body: some View {
         VStack {
+            if let cfpDeadline = conference.cfpDeadline {
+                Text("CfP締切：\(cfpDeadline, style: .date)")
+            } else {
+                Text("CfP締切：未定")
+            }
+            if let sponcerDeadline = conference.sponsorDeadline {
+                Text("スポンサー締切：\(sponcerDeadline, style: .date)")
+            } else {
+                Text("スポンサー締切：未定")
+            }
             List { ForEach(conference.tasks, id: \.self) { sampleTask in
                 HStack {
                     Button(action: {
@@ -71,7 +81,7 @@ struct SheetView: View {
     var body: some View {
         VStack {
             TextField("タスク内容を入力", text: $taskName)
-            DatePicker("日時を選択", selection: $dueDate)
+            DatePicker("日時を選択", selection: $dueDate, displayedComponents: [.date])
             Button {
                 context.insert(ConferenceTask(name: taskName, dueDate: dueDate, parent: conference))
                 dismiss()
@@ -83,6 +93,3 @@ struct SheetView: View {
     }
 }
 
-#Preview {
-    ConferenceView(conference: ConferenceData(name: "iOSDC2026", eventDate: Date()))
-}
