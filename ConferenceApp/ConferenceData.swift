@@ -9,9 +9,18 @@ import SwiftUI
 import SwiftData
 
 @Model class ConferenceData {
-    init(name: String, eventDate: Date, cfpDeadline: Date?, sponsorDeadline: Date?) {
+    init(
+        name: String,
+        eventDate: Date,
+        sponsorStartline: Date?,
+        cfpStartline: Date?,
+        cfpDeadline: Date?,
+        sponsorDeadline: Date?
+    ) {
         self.name = name
         self.eventDate = eventDate
+        self.sponsorStartline = sponsorStartline
+        self.cfpStartline = cfpStartline
         self.cfpDeadline = cfpDeadline
         self.sponsorDeadline = sponsorDeadline
     }
