@@ -15,15 +15,25 @@ struct ConferenceView: View {
     
     var body: some View {
         VStack {
+            if let cfpStartline = conference.cfpStartline {
+                Text("CfP募集開始日：\(cfpStartline, style: .date)")
+            } else {
+                Text("CfP募集開始日：未定")
+            }
             if let cfpDeadline = conference.cfpDeadline {
                 Text("CfP締切：\(cfpDeadline, style: .date)")
             } else {
                 Text("CfP締切：未定")
             }
-            if let sponcerDeadline = conference.sponsorDeadline {
-                Text("スポンサー締切：\(sponcerDeadline, style: .date)")
+            if let sponsorStartline = conference.sponsorStartline {
+                Text("協賛申込開始日：\(sponsorStartline, style: .date)")
             } else {
-                Text("スポンサー締切：未定")
+                Text("協賛申込開始日：未定")
+            }
+            if let sponcerDeadline = conference.sponsorDeadline {
+                Text("協賛申込締切日：\(sponcerDeadline, style: .date)")
+            } else {
+                Text("協賛申込締切日：未定")
             }
             List { ForEach(conference.tasks, id: \.self) { sampleTask in
                 HStack {
