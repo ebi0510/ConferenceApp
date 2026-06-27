@@ -20,6 +20,7 @@ struct ContentView: View {
                     NavigationLink(destination: ConferenceView(conference: sampleContent)){
                         Text(sampleContent.name)
                         Text(sampleContent.eventDate, style: .date)
+                        Text("あと\(String(max(0, Calendar.current.dateComponents([.day], from: Date(), to: sampleContent.eventDate).day ?? 0)))日")
                     }
                 }
                 .onDelete(perform: deleteItems)
