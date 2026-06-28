@@ -121,6 +121,7 @@ struct AddConferenceView: View {
             } label: {
                 Text("カンファレンスを追加")
             }
+            .disabled(conferenceName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
         }
         .padding()
     }

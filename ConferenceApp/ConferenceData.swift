@@ -24,7 +24,7 @@ import SwiftData
         self.cfpDeadline = cfpDeadline
         self.sponsorDeadline = sponsorDeadline
     }
-//    なんのデータか見分けがつく名称を使う
+
     var name: String
     var eventDate: Date
     var cfpStartline: Date?
