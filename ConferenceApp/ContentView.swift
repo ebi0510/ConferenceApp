@@ -18,9 +18,21 @@ struct ContentView: View {
             VStack {
                 List{ ForEach(sampleContents, id: \.self) { sampleContent in
                     NavigationLink(destination: ConferenceView(conference: sampleContent)){
-                        Text(sampleContent.name)
-                        Text(sampleContent.eventDate, style: .date)
-                        Text("あと\(String(max(0, Calendar.current.dateComponents([.day], from: Date(), to: sampleContent.eventDate).day ?? 0)))日")
+                        VStack {
+                            HStack {
+                                Text(sampleContent.name).lineLimit(1)
+                                Spacer()
+                                Text("あと\(String(max(0, Calendar.current.dateComponents([.day], from: Date(), to: sampleContent.eventDate).day ?? 0)))日")
+                                    .frame(width: 85, height: 25)
+                                    .background(Capsule().fill( Color("BrandColorPale")))
+                                    .font(.callout)
+                                    .foregroundStyle(Color("BrandColorDark"))
+                            }
+                            .padding(.bottom, 5)
+                            
+                            Text(sampleContent.eventDate, style: .date)
+                        }
+                        .padding(.horizontal,20)
                     }
                 }
                 .onDelete(perform: deleteItems)
