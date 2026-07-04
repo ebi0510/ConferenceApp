@@ -16,28 +16,29 @@ struct ContentView: View {
     var body: some View {
         NavigationStack{
             VStack {
-                List{ ForEach(sampleContents, id: \.self) { sampleContent in
-                    NavigationLink(destination: ConferenceView(conference: sampleContent)){
-                        VStack {
-                            HStack {
-                                Text(sampleContent.name).lineLimit(1)
-                                Spacer()
-                                Text("あと\(String(max(0, Calendar.current.dateComponents([.day], from: Date(), to: sampleContent.eventDate).day ?? 0)))日")
-                                    .frame(width: 85, height: 25)
-                                    .background(Capsule().fill( Color("BrandColorPale")))
-                                    .font(.callout)
-                                    .foregroundStyle(Color("BrandColorDark"))
-                            }
-                            .padding(.bottom, 5)
-                            
-                            Text(sampleContent.eventDate, style: .date)
+                ScrollView {
+                    VStack (spacing: 12){
+                        ForEach(sampleContents, id: \.self) { sampleContent in
+                    NavigationLink (destination: ConferenceView(conference: sampleContent)){
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text(sampleContent.name).lineLimit(1)
+                                .font(.title.bold())
+                                .foregroundStyle(Color("TextPrimary"))
+                            Text("あと\(String(max(0, Calendar.current.dateComponents([.day], from: Date(), to: sampleContent.eventDate).day ?? 0)))日")
+                                .font(.title2)
+                                .foregroundStyle(Color("TextSecondary"))
                         }
-                        .padding(.horizontal,20)
+                        .frame(width: 350, height: 120, alignment: .leading)
+                        .padding(.horizontal, 40)
+                        .background {
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(Color("CardLayer"))
+                        }
+                        .font(.custom("JetBrains Mono", size: 22))
                     }
                 }
-                .onDelete(perform: deleteItems)
                 }
-                .scrollContentBackground(.hidden)
+                }
                 .background(Color("Background"))
                 
                 Button {
