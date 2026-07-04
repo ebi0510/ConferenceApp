@@ -9,11 +9,13 @@ import SwiftUI
 import SwiftData
 
 @main
-struct ConferenceAppApp: App {
+struct ConferenceApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .preferredColorScheme(.dark)
         }
         .modelContainer(for: ConferenceData.self)
     }
 }
+
