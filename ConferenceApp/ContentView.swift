@@ -51,19 +51,19 @@ struct ContentView: View {
                     showSheet = true
                 } label: {
                     Text("カンファレンスを追加")
+                        .foregroundStyle(Color.black)
                 }
                 .sheet(isPresented: $showSheet) {
                     AddConferenceView()
                 }
-                .padding(15)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.gray, lineWidth: 2) // 枠線の色と太さ
+                .padding(20)
+                .background(
+                    RoundedRectangle(cornerRadius: 50)
+                        .fill(Color("Accent"))
                 )
                 .clipShape(RoundedRectangle(cornerRadius: 10))
             }
             .padding()
-            
         }
         
     }
