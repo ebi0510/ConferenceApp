@@ -36,6 +36,12 @@ struct ContentView: View {
                         }
                         .font(.custom("JetBrains Mono", size: 22))
                     }
+                    .toolbar {
+                        ToolbarItem(placement: .principal) {
+                            Text("協賛一覧")
+                                .font(.title.bold())
+                        }
+                    }
                 }
                 }
                 }
