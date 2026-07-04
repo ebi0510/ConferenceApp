@@ -15,43 +15,50 @@ struct ConferenceView: View {
     
     var body: some View {
         VStack {
-            if let cfpStartline = conference.cfpStartline {
-                Text("CfP募集開始日：\(cfpStartline, style: .date)")
-            } else {
-                Text("CfP募集開始日：未定")
-            }
-            if let cfpDeadline = conference.cfpDeadline {
-                Text("CfP締切：\(cfpDeadline, style: .date)")
-            } else {
-                Text("CfP締切：未定")
-            }
-            if let sponsorStartline = conference.sponsorStartline {
-                Text("協賛申込開始日：\(sponsorStartline, style: .date)")
-            } else {
-                Text("協賛申込開始日：未定")
-            }
-            if let sponcerDeadline = conference.sponsorDeadline {
-                Text("協賛申込締切日：\(sponcerDeadline, style: .date)")
-            } else {
-                Text("協賛申込締切日：未定")
-            }
-            List { ForEach(conference.tasks, id: \.self) { sampleTask in
-                HStack {
-                    Button(action: {
-                        sampleTask.isDone.toggle()
-                    }) {
-                        if sampleTask.isDone {
-                            Image(systemName: "checkmark.circle.fill").renderingMode(.original)
-                        } else {
-                            Image(systemName: "circle").renderingMode(.original)
+            VStack {
+                Text("あと\(String(max(0, Calendar.current.dateComponents([.day], from: Date(), to: conference.eventDate).day ?? 0)))日")
+                    .font(.title.bold())
+                
+                if let cfpStartline = conference.cfpStartline {
+                    Text("CfP募集開始日：\(cfpStartline, style: .date)")
+                } else {
+                    Text("CfP募集開始日：未定")
+                }
+                if let cfpDeadline = conference.cfpDeadline {
+                    Text("CfP締切：\(cfpDeadline, style: .date)")
+                } else {
+                    Text("CfP締切：未定")
+                }
+                if let sponsorStartline = conference.sponsorStartline {
+                    Text("協賛申込開始日：\(sponsorStartline, style: .date)")
+                } else {
+                    Text("協賛申込開始日：未定")
+                }
+                if let sponcerDeadline = conference.sponsorDeadline {
+                    Text("協賛申込締切日：\(sponcerDeadline, style: .date)")
+                } else {
+                    Text("協賛申込締切日：未定")
+                }
+                List { ForEach(conference.tasks, id: \.self) { sampleTask in
+                    HStack {
+                        Button(action: {
+                            sampleTask.isDone.toggle()
+                        }) {
+                            if sampleTask.isDone {
+                                Image(systemName: "checkmark.circle.fill").renderingMode(.original)
+                            } else {
+                                Image(systemName: "circle").renderingMode(.original)
+                            }
                         }
+                        Text(sampleTask.name)
+                        Text(sampleTask.dueDate, style: .date)
                     }
-                    Text(sampleTask.name)
-                    Text(sampleTask.dueDate, style: .date)
+                }
+                .scrollContentBackground(.hidden)
+                .background(Color("Background"))
                 }
             }
-            .onDelete(perform: deleteItems)
-            }
+            .foregroundStyle(Color("TextPrimary"))
             
             Button {
                 showSheet = true
@@ -69,7 +76,15 @@ struct ConferenceView: View {
             .clipShape(RoundedRectangle(cornerRadius: 10))
         }
         .padding()
+        .background(Color("Background"))
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text(conference.name)
+                    .font(.title.bold())
+            }
+        }
     }
+    
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             for index in offsets {
