@@ -21,24 +21,35 @@ struct ConferenceView: View {
                 
                 if let cfpStartline = conference.cfpStartline {
                     Text("CfP募集開始日：\(cfpStartline, style: .date)")
+                        .font(.body)
                 } else {
                     Text("CfP募集開始日：未定")
+                        .font(.body)
                 }
+                    
                 if let cfpDeadline = conference.cfpDeadline {
                     Text("CfP締切：\(cfpDeadline, style: .date)")
+                        .font(.body)
                 } else {
                     Text("CfP締切：未定")
+                        .font(.body)
                 }
                 if let sponsorStartline = conference.sponsorStartline {
                     Text("協賛申込開始日：\(sponsorStartline, style: .date)")
+                        .font(.body)
                 } else {
                     Text("協賛申込開始日：未定")
+                        .font(.body)
                 }
+                
                 if let sponcerDeadline = conference.sponsorDeadline {
                     Text("協賛申込締切日：\(sponcerDeadline, style: .date)")
+                        .font(.body)
                 } else {
                     Text("協賛申込締切日：未定")
+                        .font(.body)
                 }
+                
                 List { ForEach(conference.tasks, id: \.self) { sampleTask in
                     HStack {
                         Button(action: {
@@ -53,6 +64,7 @@ struct ConferenceView: View {
                         Text(sampleTask.name)
                         Text(sampleTask.dueDate, style: .date)
                     }
+                    .font(.body)
                 }
                 .scrollContentBackground(.hidden)
                 .background(Color("Background"))
@@ -63,15 +75,16 @@ struct ConferenceView: View {
             Button {
                 showSheet = true
             } label: {
-                Text("タスクを追加")
+                Text("新しいタスク")
+                    .foregroundStyle(Color.black)
             }
             .sheet(isPresented: $showSheet) {
                 SheetView(conference: conference)
             }
-            .padding(15)
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.gray, lineWidth: 2) // 枠線の色と太さ
+            .padding(20)
+            .background(
+                RoundedRectangle(cornerRadius: 50)
+                    .fill(Color("Accent"))
             )
             .clipShape(RoundedRectangle(cornerRadius: 10))
         }
@@ -83,6 +96,7 @@ struct ConferenceView: View {
                     .font(.title.bold())
             }
         }
+        .font(.custom("JetBrains Mono", size: 22))
     }
     
     private func deleteItems(offsets: IndexSet) {
