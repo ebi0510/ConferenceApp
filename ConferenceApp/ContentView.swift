@@ -37,6 +37,9 @@ struct ContentView: View {
                 }
                 .onDelete(perform: deleteItems)
                 }
+                .scrollContentBackground(.hidden)
+                .background(Color("Background"))
+                
                 Button {
                     showSheet = true
                 } label: {
@@ -53,7 +56,9 @@ struct ContentView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 10))
             }
             .padding()
+            
         }
+        
     }
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
