@@ -19,37 +19,6 @@ struct ConferenceView: View {
                 Text("あと\(String(max(0, Calendar.current.dateComponents([.day], from: Date(), to: conference.eventDate).day ?? 0)))日")
                     .font(.title.bold())
                 
-                if let cfpStartline = conference.cfpStartline {
-                    Text("CfP募集開始日：\(cfpStartline, style: .date)")
-                        .font(.body)
-                } else {
-                    Text("CfP募集開始日：未定")
-                        .font(.body)
-                }
-                    
-                if let cfpDeadline = conference.cfpDeadline {
-                    Text("CfP締切：\(cfpDeadline, style: .date)")
-                        .font(.body)
-                } else {
-                    Text("CfP締切：未定")
-                        .font(.body)
-                }
-                if let sponsorStartline = conference.sponsorStartline {
-                    Text("協賛申込開始日：\(sponsorStartline, style: .date)")
-                        .font(.body)
-                } else {
-                    Text("協賛申込開始日：未定")
-                        .font(.body)
-                }
-                
-                if let sponcerDeadline = conference.sponsorDeadline {
-                    Text("協賛申込締切日：\(sponcerDeadline, style: .date)")
-                        .font(.body)
-                } else {
-                    Text("協賛申込締切日：未定")
-                        .font(.body)
-                }
-                
                 List { ForEach(conference.tasks, id: \.self) { sampleTask in
                     HStack {
                         Button(action: {
@@ -66,6 +35,7 @@ struct ConferenceView: View {
                     }
                     .font(.body)
                 }
+                .onDelete(perform: deleteItems)
                 .scrollContentBackground(.hidden)
                 .background(Color("Background"))
                 }
@@ -109,12 +79,13 @@ struct ConferenceView: View {
     }
 }
 
-
 struct SheetView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) var context
     @State var taskName = ""
     @State var dueDate = Date()
+    @State var type = ""
+    @State var deployedAt = Date()
     let conference: ConferenceData
     
     var body: some View {
@@ -122,7 +93,7 @@ struct SheetView: View {
             TextField("タスク内容を入力", text: $taskName)
             DatePicker("日時を選択", selection: $dueDate, displayedComponents: [.date])
             Button {
-                context.insert(ConferenceTask(name: taskName, dueDate: dueDate, parent: conference))
+                context.insert(ConferenceTask(name: taskName, dueDate: dueDate, type: type, deployedAt: deployedAt, parent: conference))
                 dismiss()
             } label: {
                 Text("タスクを追加")
