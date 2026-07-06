@@ -8,11 +8,29 @@
 import SwiftUI
 import SwiftData
 
+enum TaskType: String, CaseIterable, Identifiable, Codable {
+    case docs = "docs"
+    case design = "design"
+    case chore = "chore"
+    
+    // Identifiableに適合させるため（Pickerなどでループ回す時に便利）
+    var id: Self { self }
+    
+    // UIで表示するための絵文字
+    var emoji: String {
+        switch self {
+        case .docs: return "📝"
+        case .design: return "🎨"
+        case .chore: return "📦"
+        }
+    }
+}
+
 @Model class ConferenceTask {
     init(
         name: String,
         dueDate: Date,
-        type: String,
+        type: TaskType,
         deployedAt: Date?,
         parent: ConferenceData?
     ) {
@@ -25,7 +43,7 @@ import SwiftData
     }
     
     var name: String
-    var type: String
+    var type: TaskType
     var dueDate: Date
     var deployedAt: Date?
     var isDone: Bool
