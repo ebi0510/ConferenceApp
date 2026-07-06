@@ -19,25 +19,33 @@ struct ConferenceView: View {
                 Text("あと\(String(max(0, Calendar.current.dateComponents([.day], from: Date(), to: conference.eventDate).day ?? 0)))日")
                     .font(.title.bold())
                 
-                List { ForEach(conference.tasks, id: \.self) { sampleTask in
-                    HStack {
-                        Button(action: {
-                            sampleTask.isDone.toggle()
-                        }) {
-                            if sampleTask.isDone {
-                                Image(systemName: "checkmark.circle.fill").renderingMode(.original)
-                            } else {
-                                Image(systemName: "circle").renderingMode(.original)
+                ScrollView {
+                    VStack(spacing: 12) {
+                        ForEach(conference.tasks, id: \.self) { sampleTask in
+                            HStack {
+                                Button(action: {
+                                    sampleTask.isDone.toggle()
+                                }) {
+                                    if sampleTask.isDone {
+                                        Image(systemName: "checkmark.circle.fill").renderingMode(.original)
+                                    } else {
+                                        Image(systemName: "circle").renderingMode(.original)
+                                    }
+                                }
+                                Text(sampleTask.name)
+                                Text(sampleTask.dueDate, style: .date)
+                            }
+                            .font(.body)
+                            .font(.custom("JetBrains Mono", size: 22))
+                            .frame(width: 350, height: 70, alignment: .leading)
+                            .padding(.horizontal, 40)
+                            .background {
+                                RoundedRectangle(cornerRadius: 20)
+                                    .fill(Color("CardLayer"))
                             }
                         }
-                        Text(sampleTask.name)
-                        Text(sampleTask.dueDate, style: .date)
+                        .background(Color("Background"))
                     }
-                    .font(.body)
-                }
-                .onDelete(perform: deleteItems)
-                .scrollContentBackground(.hidden)
-                .background(Color("Background"))
                 }
             }
             .foregroundStyle(Color("TextPrimary"))
