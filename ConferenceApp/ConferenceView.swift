@@ -16,8 +16,9 @@ struct ConferenceView: View {
     var body: some View {
         VStack {
             VStack {
-                Text("あと\(String(max(0, Calendar.current.dateComponents([.day], from: Date(), to: conference.eventDate).day ?? 0)))日")
+                Text("あと\n\(String(max(0, Calendar.current.dateComponents([.day], from: Date(), to: conference.eventDate).day ?? 0)))日")
                     .font(.title.bold())
+                    .padding(.bottom, 30)
                 
                 ScrollView {
                     VStack(spacing: 12) {
@@ -83,6 +84,7 @@ struct ConferenceView: View {
                     .font(.title.bold())
             }
         }
+        .navigationBarTitleDisplayMode(.inline)
         .font(.custom("JetBrains Mono", size: 22))
     }
 }
