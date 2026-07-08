@@ -49,6 +49,7 @@ struct ContentView: View {
                                         .font(.title.bold())
                                 }
                             }
+                            .navigationBarTitleDisplayMode(.inline)
                         }
                     }
                 }

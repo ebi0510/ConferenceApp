@@ -16,7 +16,7 @@ import SwiftData
         self.name = name
         self.eventDate = eventDate
     }
-
+    
     var name: String
     var eventDate: Date
     @Relationship(inverse: \ConferenceTask.parent)
