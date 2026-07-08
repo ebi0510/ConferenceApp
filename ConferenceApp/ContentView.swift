@@ -11,7 +11,7 @@ import SwiftData
 struct ContentView: View {
     @State private var showSheet = false
     @Environment(\.modelContext) var context
-    @Query var sampleContents: [ConferenceData]
+    @Query(sort: \ConferenceData.eventDate, order: .forward) var sampleContents: [ConferenceData]
     
     var body: some View {
         NavigationStack{
@@ -74,6 +74,7 @@ struct ContentView: View {
         }
         
     }
+    
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             for index in offsets {
@@ -91,10 +92,11 @@ struct AddConferenceView: View {
     @State var conferenceName = ""
     
     var body: some View {
-        VStack {
+        VStack(spacing: 20) {
             TextField("カンファレンス名を入力", text: $conferenceName)
             DatePicker("開催日を入力", selection: $eventDate, displayedComponents: [.date])
         }
+        .padding(30)
         
         Button {
             context.insert(ConferenceData(
