@@ -63,7 +63,7 @@ struct ConferenceView: View {
             Button {
                 showSheet = true
             } label: {
-                Text("新しいタスク")
+                Text("Add Task")
                     .foregroundStyle(Color.black)
             }
             .sheet(isPresented: $showSheet) {
@@ -112,7 +112,7 @@ struct SheetView: View {
                 context.insert(ConferenceTask(name: taskName, dueDate: dueDate, type: selectedType, deployedAt: deployedAt, parent: conference))
                 dismiss()
             } label: {
-                Text("タスクを追加")
+                Text("Add")
             }
         }
         .padding(30)

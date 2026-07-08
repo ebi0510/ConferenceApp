@@ -58,7 +58,7 @@ struct ContentView: View {
                 Button {
                     showSheet = true
                 } label: {
-                    Text("カンファレンスを追加")
+                    Text("Add Conference")
                         .foregroundStyle(Color.black)
                 }
                 .sheet(isPresented: $showSheet) {
@@ -106,7 +106,7 @@ struct AddConferenceView: View {
             ))
             dismiss()
         } label: {
-            Text("カンファレンスを追加")
+            Text("Add")
         }
         .disabled(conferenceName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
     }
