@@ -32,6 +32,8 @@ struct ConferenceView: View {
                                         Image(systemName: "circle").renderingMode(.original)
                                     }
                                 }
+                                Text(sampleTask.isDone ? "● deployed:" : "\(sampleTask.type.emoji) \(sampleTask.type.rawValue):")
+                                    .foregroundColor(sampleTask.isDone ? Color("Accent") : .secondary)
                                 Text(sampleTask.name)
                                 Text(sampleTask.dueDate, style: .date)
                             }
@@ -42,6 +44,13 @@ struct ConferenceView: View {
                             .background {
                                 RoundedRectangle(cornerRadius: 20)
                                     .fill(Color("CardLayer"))
+                            }
+                            .contextMenu {
+                                Button(role: .destructive) {
+                                    context.delete(sampleTask)
+                                } label: {
+                                    Label("削除", systemImage: "trash")
+                                }
                             }
                         }
                         .background(Color("Background"))
@@ -76,15 +85,6 @@ struct ConferenceView: View {
         }
         .font(.custom("JetBrains Mono", size: 22))
     }
-    
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                let item = conference.tasks[index]
-                context.delete(item) // 削除を予約
-            }
-        }
-    }
 }
 
 struct SheetView: View {
@@ -92,16 +92,22 @@ struct SheetView: View {
     @Environment(\.modelContext) var context
     @State var taskName = ""
     @State var dueDate = Date()
-    @State var type = ""
-    @State var deployedAt = Date()
+    @State private var selectedType: TaskType = .docs
+    @State var deployedAt: Date? = nil
     let conference: ConferenceData
     
     var body: some View {
         VStack {
+            Picker("タイプ", selection: $selectedType) {
+                ForEach(TaskType.allCases) { type in
+                    Text("\(type.emoji) \(type.rawValue)")
+                }
+            }
+            .pickerStyle(.segmented)
             TextField("タスク内容を入力", text: $taskName)
             DatePicker("日時を選択", selection: $dueDate, displayedComponents: [.date])
             Button {
-                context.insert(ConferenceTask(name: taskName, dueDate: dueDate, type: type, deployedAt: deployedAt, parent: conference))
+                context.insert(ConferenceTask(name: taskName, dueDate: dueDate, type: selectedType, deployedAt: deployedAt, parent: conference))
                 dismiss()
             } label: {
                 Text("タスクを追加")
