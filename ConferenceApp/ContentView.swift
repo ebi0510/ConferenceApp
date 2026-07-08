@@ -59,7 +59,7 @@ struct ContentView: View {
                     showSheet = true
                 } label: {
                     Text("Add Conference")
-                        .foregroundStyle(Color.black)
+                        .foregroundStyle(Color.black).bold()
                 }
                 .sheet(isPresented: $showSheet) {
                     AddConferenceView()
@@ -107,7 +107,14 @@ struct AddConferenceView: View {
             dismiss()
         } label: {
             Text("Add")
+                .foregroundStyle(Color.black).bold()
         }
+        .padding(20)
+        .background(
+            RoundedRectangle(cornerRadius: 50)
+                .fill(Color("Accent"))
+        )
+        .clipShape(RoundedRectangle(cornerRadius: 10))
         .disabled(conferenceName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
     }
 }

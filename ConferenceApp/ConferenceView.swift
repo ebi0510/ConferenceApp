@@ -64,7 +64,7 @@ struct ConferenceView: View {
                 showSheet = true
             } label: {
                 Text("Add Task")
-                    .foregroundStyle(Color.black)
+                    .foregroundStyle(Color.black).bold()
             }
             .sheet(isPresented: $showSheet) {
                 SheetView(conference: conference)
@@ -113,9 +113,17 @@ struct SheetView: View {
                 dismiss()
             } label: {
                 Text("Add")
+                    .foregroundStyle(Color.black).bold()
             }
+            .padding(20)
+            .background(
+                RoundedRectangle(cornerRadius: 50)
+                    .fill(Color("Accent"))
+            )
+            .clipShape(RoundedRectangle(cornerRadius: 10))
         }
         .padding(30)
+        .font(.custom("JetBrains Mono", size: 22))
     }
 }
 
