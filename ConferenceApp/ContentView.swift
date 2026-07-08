@@ -36,6 +36,13 @@ struct ContentView: View {
                                 }
                                 .font(.custom("JetBrains Mono", size: 22))
                             }
+                            .contextMenu {
+                                Button(role: .destructive) {
+                                    context.delete(sampleContent)
+                                } label: {
+                                    Label("削除", systemImage: "trash")
+                                }
+                            }
                             .toolbar {
                                 ToolbarItem(placement: .principal) {
                                     Text("協賛一覧")
