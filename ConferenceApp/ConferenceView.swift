@@ -21,7 +21,7 @@ struct ConferenceView: View {
                 
                 ScrollView {
                     VStack(spacing: 12) {
-                        ForEach(conference.tasks, id: \.self) { sampleTask in
+                        ForEach(conference.tasks.sorted { $0.dueDate < $1.dueDate }, id: \.self) { sampleTask in
                             HStack {
                                 Button(action: {
                                     sampleTask.isDone.toggle()
@@ -97,7 +97,7 @@ struct SheetView: View {
     let conference: ConferenceData
     
     var body: some View {
-        VStack {
+        VStack(spacing: 20) {
             Picker("タイプ", selection: $selectedType) {
                 ForEach(TaskType.allCases) { type in
                     Text("\(type.emoji) \(type.rawValue)")
@@ -113,7 +113,7 @@ struct SheetView: View {
                 Text("タスクを追加")
             }
         }
-        .padding()
+        .padding(30)
     }
 }
 
