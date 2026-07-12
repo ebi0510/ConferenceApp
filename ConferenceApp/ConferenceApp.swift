@@ -12,7 +12,7 @@ import SwiftData
 struct ConferenceApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LaunchView()
                 .preferredColorScheme(.dark)
         }
         .modelContainer(for: ConferenceData.self)
