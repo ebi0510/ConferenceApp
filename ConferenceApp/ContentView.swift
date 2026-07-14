@@ -49,6 +49,7 @@ struct ContentView: View {
                                         .font(.title.bold())
                                 }
                             }
+                            .navigationBarTitleDisplayMode(.inline)
                         }
                     }
                 }
@@ -57,8 +58,8 @@ struct ContentView: View {
                 Button {
                     showSheet = true
                 } label: {
-                    Text("カンファレンスを追加")
-                        .foregroundStyle(Color.black)
+                    Text("Add Conference")
+                        .foregroundStyle(Color.black).bold()
                 }
                 .sheet(isPresented: $showSheet) {
                     AddConferenceView()
@@ -105,8 +106,15 @@ struct AddConferenceView: View {
             ))
             dismiss()
         } label: {
-            Text("カンファレンスを追加")
+            Text("Add")
+                .foregroundStyle(Color.black).bold()
         }
+        .padding(20)
+        .background(
+            RoundedRectangle(cornerRadius: 50)
+                .fill(Color("Accent"))
+        )
+        .clipShape(RoundedRectangle(cornerRadius: 10))
         .disabled(conferenceName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
     }
 }

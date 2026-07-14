@@ -16,8 +16,16 @@ struct ConferenceView: View {
     var body: some View {
         VStack {
             VStack {
-                Text("あと\(String(max(0, Calendar.current.dateComponents([.day], from: Date(), to: conference.eventDate).day ?? 0)))日")
-                    .font(.title.bold())
+                VStack {
+                    Text("あと")
+                    HStack {
+                        Text("\(String(max(0, Calendar.current.dateComponents([.day], from: Date(), to: conference.eventDate).day ?? 0)))")
+                            .font(.largeTitle.bold())
+                        Text("日")
+                    }
+                }
+                    .font(.title2)
+                    .padding(.bottom, 30)
                 
                 ScrollView {
                     VStack(spacing: 12) {
@@ -62,8 +70,8 @@ struct ConferenceView: View {
             Button {
                 showSheet = true
             } label: {
-                Text("新しいタスク")
-                    .foregroundStyle(Color.black)
+                Text("Add Task")
+                    .foregroundStyle(Color.black).bold()
             }
             .sheet(isPresented: $showSheet) {
                 SheetView(conference: conference)
@@ -83,6 +91,7 @@ struct ConferenceView: View {
                     .font(.title.bold())
             }
         }
+        .navigationBarTitleDisplayMode(.inline)
         .font(.custom("JetBrains Mono", size: 22))
     }
 }
@@ -110,10 +119,18 @@ struct SheetView: View {
                 context.insert(ConferenceTask(name: taskName, dueDate: dueDate, type: selectedType, deployedAt: deployedAt, parent: conference))
                 dismiss()
             } label: {
-                Text("タスクを追加")
+                Text("Add")
+                    .foregroundStyle(Color.black).bold()
             }
+            .padding(20)
+            .background(
+                RoundedRectangle(cornerRadius: 50)
+                    .fill(Color("Accent"))
+            )
+            .clipShape(RoundedRectangle(cornerRadius: 10))
         }
         .padding(30)
+        .font(.custom("JetBrains Mono", size: 22))
     }
 }
 
